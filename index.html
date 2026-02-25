@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* -------------------- Reset & Base -------------------- */
         * {
             margin: 0;
             padding: 0;
@@ -32,7 +31,7 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* -------------------- رقص نور (ذرات نورانی) -------------------- */
+        /* رقص نور (ذرات نورانی) */
         .light-particles {
             position: fixed;
             top: 0;
@@ -61,13 +60,13 @@
             75% { transform: translateY(-20px) translateX(20px) scale(1.1); opacity: 0.7; }
         }
 
-        /* -------------------- هدر (Hero) -------------------- */
+        /* هدر */
         .hero {
             position: relative;
             height: 100vh;
             min-height: 600px;
             background: url('https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
-            background-attachment: fixed; /* افکت پارالاکس ملایم */
+            background-attachment: fixed;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -121,17 +120,11 @@
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* -------------------- بخش اصلی (فرم و کارت‌ها) -------------------- */
+        /* بخش اصلی */
         main {
             position: relative;
             z-index: 2;
@@ -140,7 +133,7 @@
             padding: 60px 20px;
         }
 
-        /* فرم عضویت */
+        /* فرم عضویت با دو فیلد */
         .membership-card {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(12px);
@@ -169,12 +162,13 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
             max-width: 500px;
             margin: 0 auto;
         }
 
-        .phone-input-wrapper {
+        /* استایل مشترک برای هر دو فیلد */
+        .input-wrapper {
             display: flex;
             align-items: center;
             background: white;
@@ -186,30 +180,39 @@
             transition: all 0.3s;
         }
 
-        .phone-input-wrapper:focus-within {
+        .input-wrapper:focus-within {
             box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
             border-color: #28a745;
         }
 
-        .phone-input-wrapper i {
+        .input-wrapper i {
             color: #28a745;
             font-size: 1.3rem;
             margin-left: 10px;
         }
 
-        .phone-input-wrapper input {
+        .input-wrapper input {
             flex: 1;
             border: none;
             padding: 16px 0;
             font-size: 1.1rem;
             font-family: 'Vazirmatn', sans-serif;
-            direction: ltr;
-            text-align: left;
             outline: none;
             background: transparent;
         }
 
-        .phone-input-wrapper button {
+        /* ورودی نام (راست‌چین) */
+        #name {
+            text-align: right;
+        }
+
+        /* ورودی شماره (چپ‌چین) */
+        #phone {
+            direction: ltr;
+            text-align: left;
+        }
+
+        .input-wrapper button {
             background: #28a745;
             color: white;
             border: none;
@@ -222,9 +225,11 @@
             white-space: nowrap;
             font-family: 'Vazirmatn', sans-serif;
             border: 1px solid transparent;
+            width: 100%;
+            margin-top: 10px;
         }
 
-        .phone-input-wrapper button:hover {
+        .input-wrapper button:hover {
             background: #1e7e34;
             transform: scale(1.02);
             box-shadow: 0 5px 15px rgba(30, 126, 52, 0.4);
@@ -237,13 +242,8 @@
             font-weight: 500;
         }
 
-        .success {
-            color: #1b5e1b;
-        }
-
-        .error {
-            color: #b71c1c;
-        }
+        .success { color: #1b5e1b; }
+        .error { color: #b71c1c; }
 
         /* کارت‌های مجله */
         .magazine-grid {
@@ -292,7 +292,6 @@
             line-height: 1.7;
         }
 
-        /* فوتر */
         footer {
             text-align: center;
             padding: 30px 20px;
@@ -305,35 +304,25 @@
             position: relative;
         }
 
-        /* -------------------- واکنش‌گرایی موبایل -------------------- */
+        /* واکنش‌گرایی موبایل */
         @media (max-width: 768px) {
-            .hero-content h1 {
-                font-size: 3rem;
-            }
-            .hero-content h1 span {
-                font-size: 1.4rem;
-                letter-spacing: 2px;
-            }
-            .hero-content p {
-                font-size: 1.2rem;
-            }
-            .membership-card h2 {
-                font-size: 1.8rem;
-            }
-            .membership-card p {
-                font-size: 1rem;
-            }
-            .phone-input-wrapper {
+            .hero-content h1 { font-size: 3rem; }
+            .hero-content h1 span { font-size: 1.4rem; letter-spacing: 2px; }
+            .hero-content p { font-size: 1.2rem; }
+            .membership-card h2 { font-size: 1.8rem; }
+            .membership-card p { font-size: 1rem; }
+            
+            .input-wrapper {
                 flex-wrap: wrap;
                 border-radius: 30px;
                 padding: 10px;
             }
-            .phone-input-wrapper i {
+            .input-wrapper i {
                 width: 100%;
                 text-align: center;
                 margin-bottom: 5px;
             }
-            .phone-input-wrapper input {
+            .input-wrapper input {
                 width: 100%;
                 text-align: center;
                 padding: 12px;
@@ -341,28 +330,21 @@
                 border-radius: 20px;
                 margin-bottom: 10px;
             }
-            .phone-input-wrapper button {
+            .input-wrapper button {
                 width: 100%;
                 border-radius: 30px;
                 padding: 14px;
+                margin-top: 5px;
             }
-            .glass-card {
-                border-radius: 20px;
-            }
-            .card-content h3 {
-                font-size: 1.3rem;
-            }
-            .card-content p {
-                font-size: 0.95rem;
-            }
+            .glass-card { border-radius: 20px; }
+            .card-content h3 { font-size: 1.3rem; }
+            .card-content p { font-size: 0.95rem; }
         }
     </style>
 </head>
 <body>
-    <!-- ذرات نورانی (رقص نور) -->
     <div class="light-particles" id="lightParticles"></div>
 
-    <!-- هدر -->
     <header class="hero">
         <div class="hero-content">
             <h1>نخودی <span>NOKHOODI.IR</span></h1>
@@ -371,17 +353,23 @@
     </header>
 
     <main>
-        <!-- فرم عضویت -->
+        <!-- فرم عضویت با نام و شماره -->
         <section class="membership-card">
             <h2>عضویت در باشگاه نخودی</h2>
             <p>اولین نفری باشید که از جدیدترین اخبار خودرو و فرصت‌های ملکی باخبر می‌شوید.</p>
             <form id="phoneForm">
                 <div class="form-group">
-                    <div class="phone-input-wrapper">
-                        <i class="fas fa-mobile-alt"></i>
-                        <input type="tel" id="phone" name="phone" placeholder="شماره موبایل خود را وارد کنید" required pattern="09[0-9]{9}" title="مثال: 09123456789">
-                        <button type="submit">عضویت</button>
+                    <!-- فیلد نام -->
+                    <div class="input-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="name" name="name" placeholder="نام و نام خانوادگی" required>
                     </div>
+                    <!-- فیلد شماره موبایل -->
+                    <div class="input-wrapper">
+                        <i class="fas fa-mobile-alt"></i>
+                        <input type="tel" id="phone" name="phone" placeholder="شماره موبایل" required pattern="09[0-9]{9}" title="مثال: 09123456789">
+                    </div>
+                    <button type="submit">عضویت</button>
                     <div id="formMessage"></div>
                 </div>
             </form>
@@ -419,7 +407,7 @@
     </footer>
 
     <script>
-        // ========== ذرات نورانی (رقص نور) ==========
+        // ذرات نورانی
         function createParticles() {
             const container = document.getElementById('lightParticles');
             const particleCount = 30;
@@ -438,10 +426,11 @@
         }
         createParticles();
 
-        // ========== مدیریت فرم ==========
-        const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xqednzzj'; // لینک اختصاصی شما
+        // مدیریت فرم
+        const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xqednzzj'; // آدرس شما
 
         const form = document.getElementById('phoneForm');
+        const nameInput = document.getElementById('name');
         const phoneInput = document.getElementById('phone');
         const messageDiv = document.getElementById('formMessage');
 
@@ -451,8 +440,17 @@
 
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
-            
+
+            const name = nameInput.value.trim();
             const phone = phoneInput.value.trim();
+
+            // اعتبارسنجی نام (حداقل ۲ حرف)
+            if (name.length < 2) {
+                showMessage('لطفاً نام معتبر وارد کنید (حداقل ۲ حرف)', 'error');
+                return;
+            }
+
+            // اعتبارسنجی شماره موبایل
             const phoneRegex = /^09[0-9]{9}$/;
             if (!phoneRegex.test(phone)) {
                 showMessage('شماره موبایل نامعتبر است. مثال: 09123456789', 'error');
@@ -463,14 +461,15 @@
                 const response = await fetch(FORMSPREE_ENDPOINT, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ phone: phone })
+                    body: JSON.stringify({ name: name, phone: phone })
                 });
 
                 if (response.ok) {
                     showMessage('عضویت شما با موفقیت ثبت شد. از اعتماد شما سپاسگزاریم!', 'success');
+                    nameInput.value = '';
                     phoneInput.value = '';
                 } else {
-                    showMessage('خطا در ثبت شماره. لطفاً دوباره تلاش کنید.', 'error');
+                    showMessage('خطا در ثبت اطلاعات. لطفاً دوباره تلاش کنید.', 'error');
                 }
             } catch (error) {
                 showMessage('خطا در ارتباط با سرور. اینترنت خود را بررسی کنید.', 'error');
