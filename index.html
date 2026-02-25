@@ -356,8 +356,6 @@
                 font-size: 0.95rem;
             }
         }
-
-        /* ذرات رقص نور (تولید با JS) */
     </style>
 </head>
 <body>
@@ -428,14 +426,11 @@
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
-                // موقعیت تصادفی
                 particle.style.left = Math.random() * 100 + '%';
                 particle.style.top = Math.random() * 100 + '%';
-                // اندازه تصادفی
                 const size = Math.random() * 8 + 3;
                 particle.style.width = size + 'px';
                 particle.style.height = size + 'px';
-                // تأخیر انیمیشن تصادفی
                 particle.style.animationDelay = Math.random() * 5 + 's';
                 particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
                 container.appendChild(particle);
@@ -444,8 +439,7 @@
         createParticles();
 
         // ========== مدیریت فرم ==========
-        // --- آدرس Endpoint فرم‌اسپری (اگر ندارید، همان '' بگذارید تا حالت localStorage فعال شود) ---
-        const FORMSPREE_ENDPOINT = '';  // مثال: 'https://formspree.io/f/xyz123'
+        const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xqednzzj'; // لینک اختصاصی شما
 
         const form = document.getElementById('phoneForm');
         const phoneInput = document.getElementById('phone');
@@ -459,44 +453,27 @@
             e.preventDefault();
             
             const phone = phoneInput.value.trim();
-            
-            // اعتبارسنجی شماره موبایل ایران (11 رقمی، شروع با 09)
             const phoneRegex = /^09[0-9]{9}$/;
             if (!phoneRegex.test(phone)) {
                 showMessage('شماره موبایل نامعتبر است. مثال: 09123456789', 'error');
                 return;
             }
 
-            // اگر endpoint فرم‌اسپری تنظیم شده باشد
-            if (FORMSPREE_ENDPOINT) {
-                try {
-                    const response = await fetch(FORMSPREE_ENDPOINT, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ phone: phone })
-                    });
-
-                    if (response.ok) {
-                        showMessage('عضویت شما با موفقیت ثبت شد. از اعتماد شما سپاسگزاریم!', 'success');
-                        phoneInput.value = '';
-                    } else {
-                        showMessage('خطا در ثبت شماره. لطفاً دوباره تلاش کنید.', 'error');
-                    }
-                } catch (error) {
-                    showMessage('خطا در ارتباط با سرور. اینترنت خود را بررسی کنید.', 'error');
-                }
-            } else {
-                // حالت fallback: ذخیره در localStorage (برای تست و نمایش)
-                let numbers = JSON.parse(localStorage.getItem('nokhoodi_numbers') || '[]');
-                numbers.push({ 
-                    phone: phone, 
-                    date: new Date().toLocaleString('fa-IR') 
+            try {
+                const response = await fetch(FORMSPREE_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phone: phone })
                 });
-                localStorage.setItem('nokhoodi_numbers', JSON.stringify(numbers));
-                showMessage('شماره شما در مرورگر ذخیره شد (ذخیره موقت).', 'success');
-                phoneInput.value = '';
+
+                if (response.ok) {
+                    showMessage('عضویت شما با موفقیت ثبت شد. از اعتماد شما سپاسگزاریم!', 'success');
+                    phoneInput.value = '';
+                } else {
+                    showMessage('خطا در ثبت شماره. لطفاً دوباره تلاش کنید.', 'error');
+                }
+            } catch (error) {
+                showMessage('خطا در ارتباط با سرور. اینترنت خود را بررسی کنید.', 'error');
             }
         });
     </script>
