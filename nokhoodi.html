@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>نخودی | مجله خودرو و املاک</title>
+    <!-- فونت وزیرمتن و Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* -------------------- Reset & Base -------------------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: linear-gradient(135deg, #e8f5e9 0%, #ffffff 50%, #c8e6c9 100%);
+            background-size: 300% 300%;
+            animation: gradientFlow 15s ease infinite;
+            color: #1b2e1b;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* -------------------- رقص نور (ذرات نورانی) -------------------- */
+        .light-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            box-shadow: 0 0 20px 4px rgba(120, 200, 120, 0.5);
+            animation: float 10s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.3; }
+            25% { transform: translateY(-30px) translateX(15px) scale(1.2); opacity: 0.8; }
+            50% { transform: translateY(-50px) translateX(-10px) scale(0.9); opacity: 0.5; }
+            75% { transform: translateY(-20px) translateX(20px) scale(1.1); opacity: 0.7; }
+        }
+
+        /* -------------------- هدر (Hero) -------------------- */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            background: url('https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+            background-attachment: fixed; /* افکت پارالاکس ملایم */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            z-index: 2;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,40,0,0.5) 0%, rgba(0,80,0,0.3) 100%);
+            backdrop-filter: blur(2px);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 15px rgba(0, 30, 0, 0.6);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-content h1 span {
+            display: block;
+            font-size: 2.2rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-top: 10px;
+            color: #d4edda;
+        }
+
+        .hero-content p {
+            font-size: 1.6rem;
+            margin-top: 20px;
+            font-weight: 300;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* -------------------- بخش اصلی (فرم و کارت‌ها) -------------------- */
+        main {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* فرم عضویت */
+        .membership-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 30px;
+            padding: 40px 30px;
+            margin-bottom: 70px;
+            box-shadow: 0 20px 40px rgba(0, 60, 0, 0.15);
+            border: 1px solid rgba(255,255,255,0.5);
+            text-align: center;
+        }
+
+        .membership-card h2 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #1b4d1b;
+            margin-bottom: 15px;
+        }
+
+        .membership-card p {
+            font-size: 1.1rem;
+            color: #2a472a;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .phone-input-wrapper {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 60px;
+            padding: 5px 5px 5px 20px;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(0, 30, 0, 0.1);
+            border: 1px solid rgba(0,80,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .phone-input-wrapper:focus-within {
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+            border-color: #28a745;
+        }
+
+        .phone-input-wrapper i {
+            color: #28a745;
+            font-size: 1.3rem;
+            margin-left: 10px;
+        }
+
+        .phone-input-wrapper input {
+            flex: 1;
+            border: none;
+            padding: 16px 0;
+            font-size: 1.1rem;
+            font-family: 'Vazirmatn', sans-serif;
+            direction: ltr;
+            text-align: left;
+            outline: none;
+            background: transparent;
+        }
+
+        .phone-input-wrapper button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            font-family: 'Vazirmatn', sans-serif;
+            border: 1px solid transparent;
+        }
+
+        .phone-input-wrapper button:hover {
+            background: #1e7e34;
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(30, 126, 52, 0.4);
+        }
+
+        #formMessage {
+            margin-top: 20px;
+            font-size: 1rem;
+            min-height: 24px;
+            font-weight: 500;
+        }
+
+        .success {
+            color: #1b5e1b;
+        }
+
+        .error {
+            color: #b71c1c;
+        }
+
+        /* کارت‌های مجله */
+        .magazine-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 50, 0, 0.15);
+            transition: transform 0.4s, box-shadow 0.4s;
+            border: 1px solid rgba(255,255,255,0.6);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 45px rgba(0, 80, 0, 0.25);
+        }
+
+        .glass-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 3px solid #28a745;
+        }
+
+        .card-content {
+            padding: 25px 20px 30px;
+        }
+
+        .card-content h3 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #1e481e;
+            margin-bottom: 10px;
+        }
+
+        .card-content p {
+            font-size: 1rem;
+            color: #2d4a2d;
+            line-height: 1.7;
+        }
+
+        /* فوتر */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(20, 50, 20, 0.8);
+            backdrop-filter: blur(5px);
+            color: #f0f9f0;
+            font-size: 0.95rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            z-index: 2;
+            position: relative;
+        }
+
+        /* -------------------- واکنش‌گرایی موبایل -------------------- */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+            .hero-content h1 span {
+                font-size: 1.4rem;
+                letter-spacing: 2px;
+            }
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+            .membership-card h2 {
+                font-size: 1.8rem;
+            }
+            .membership-card p {
+                font-size: 1rem;
+            }
+            .phone-input-wrapper {
+                flex-wrap: wrap;
+                border-radius: 30px;
+                padding: 10px;
+            }
+            .phone-input-wrapper i {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 5px;
+            }
+            .phone-input-wrapper input {
+                width: 100%;
+                text-align: center;
+                padding: 12px;
+                border-bottom: 1px solid #ddd;
+                border-radius: 20px;
+                margin-bottom: 10px;
+            }
+            .phone-input-wrapper button {
+                width: 100%;
+                border-radius: 30px;
+                padding: 14px;
+            }
+            .glass-card {
+                border-radius: 20px;
+            }
+            .card-content h3 {
+                font-size: 1.3rem;
+            }
+            .card-content p {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* ذرات رقص نور (تولید با JS) */
+    </style>
+</head>
+<body>
+    <!-- ذرات نورانی (رقص نور) -->
+    <div class="light-particles" id="lightParticles"></div>
+
+    <!-- هدر -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>نخودی <span>NOKHOODI.IR</span></h1>
+            <p>مجله تخصصی خودرو و املاک</p>
+        </div>
+    </header>
+
+    <main>
+        <!-- فرم عضویت -->
+        <section class="membership-card">
+            <h2>عضویت در باشگاه نخودی</h2>
+            <p>اولین نفری باشید که از جدیدترین اخبار خودرو و فرصت‌های ملکی باخبر می‌شوید.</p>
+            <form id="phoneForm">
+                <div class="form-group">
+                    <div class="phone-input-wrapper">
+                        <i class="fas fa-mobile-alt"></i>
+                        <input type="tel" id="phone" name="phone" placeholder="شماره موبایل خود را وارد کنید" required pattern="09[0-9]{9}" title="مثال: 09123456789">
+                        <button type="submit">عضویت</button>
+                    </div>
+                    <div id="formMessage"></div>
+                </div>
+            </form>
+            <p style="font-size:0.85rem; margin-top:15px; color:#3d5e3d;">شماره شما نزد ما امن است و فقط برای اطلاع‌رسانی استفاده می‌شود.</p>
+        </section>
+
+        <!-- کارت‌های محتوا -->
+        <section class="magazine-grid">
+            <article class="glass-card">
+                <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=500&auto=format" alt="خودرو">
+                <div class="card-content">
+                    <h3>جدیدترین خودروها</h3>
+                    <p>بررسی تخصصی جدیدترین مدل‌های داخلی و خارجی، مشخصات فنی، قیمت و نقد و بررسی ویدیویی.</p>
+                </div>
+            </article>
+            <article class="glass-card">
+                <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=500&auto=format" alt="املاک">
+                <div class="card-content">
+                    <h3>تحلیل بازار مسکن</h3>
+                    <p>آخرین تغییرات قیمت مسکن در شهرهای بزرگ، فرصت‌های سرمایه‌گذاری و نکات حقوقی خرید و فروش.</p>
+                </div>
+            </article>
+            <article class="glass-card">
+                <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=500&auto=format" alt="مقایسه">
+                <div class="card-content">
+                    <h3>مقایسه و بررسی</h3>
+                    <p>مقایسه خودروهای محبوب، پروژه‌های مسکونی برتر و مشاوره تخصصی برای انتخاب بهتر.</p>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>© ۲۰۲۵ نخودی (NOKHOODI.IR) | تمامی حقوق محفوظ است.</p>
+    </footer>
+
+    <script>
+        // ========== ذرات نورانی (رقص نور) ==========
+        function createParticles() {
+            const container = document.getElementById('lightParticles');
+            const particleCount = 30;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                // موقعیت تصادفی
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                // اندازه تصادفی
+                const size = Math.random() * 8 + 3;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                // تأخیر انیمیشن تصادفی
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // ========== مدیریت فرم ==========
+        // --- آدرس Endpoint فرم‌اسپری (اگر ندارید، همان '' بگذارید تا حالت localStorage فعال شود) ---
+        const FORMSPREE_ENDPOINT = '';  // مثال: 'https://formspree.io/f/xyz123'
+
+        const form = document.getElementById('phoneForm');
+        const phoneInput = document.getElementById('phone');
+        const messageDiv = document.getElementById('formMessage');
+
+        function showMessage(msg, type) {
+            messageDiv.innerHTML = `<span class="${type}">${msg}</span>`;
+        }
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const phone = phoneInput.value.trim();
+            
+            // اعتبارسنجی شماره موبایل ایران (11 رقمی، شروع با 09)
+            const phoneRegex = /^09[0-9]{9}$/;
+            if (!phoneRegex.test(phone)) {
+                showMessage('شماره موبایل نامعتبر است. مثال: 09123456789', 'error');
+                return;
+            }
+
+            // اگر endpoint فرم‌اسپری تنظیم شده باشد
+            if (FORMSPREE_ENDPOINT) {
+                try {
+                    const response = await fetch(FORMSPREE_ENDPOINT, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ phone: phone })
+                    });
+
+                    if (response.ok) {
+                        showMessage('عضویت شما با موفقیت ثبت شد. از اعتماد شما سپاسگزاریم!', 'success');
+                        phoneInput.value = '';
+                    } else {
+                        showMessage('خطا در ثبت شماره. لطفاً دوباره تلاش کنید.', 'error');
+                    }
+                } catch (error) {
+                    showMessage('خطا در ارتباط با سرور. اینترنت خود را بررسی کنید.', 'error');
+                }
+            } else {
+                // حالت fallback: ذخیره در localStorage (برای تست و نمایش)
+                let numbers = JSON.parse(localStorage.getItem('nokhoodi_numbers') || '[]');
+                numbers.push({ 
+                    phone: phone, 
+                    date: new Date().toLocaleString('fa-IR') 
+                });
+                localStorage.setItem('nokhoodi_numbers', JSON.stringify(numbers));
+                showMessage('شماره شما در مرورگر ذخیره شد (ذخیره موقت).', 'success');
+                phoneInput.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
